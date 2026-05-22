@@ -117,7 +117,6 @@ class Sauce {
 class ReceiptWriter {
   -String receiptFolder
   +saveReceipt(Order order)
-  -generateFileName()
 }
 
 class Menu {
