@@ -1,4 +1,6 @@
-package com.pizzaworld.models;
+package com.pizzaworld.toppings;
+
+import com.pizzaworld.models.PizzaSize;
 
 public abstract class Topping {
     private String name;
