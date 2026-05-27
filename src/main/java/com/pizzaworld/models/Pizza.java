@@ -15,6 +15,7 @@ public class Pizza implements OrderItem {
     private ArrayList<PizzaTopping> toppings;
     private ArrayList<Sauce> sauces;
     private boolean stuffedCrust;
+    private ArrayList<PizzaTopping> sides;
 
     public Pizza(PizzaSize size, Crust crust) {
         this.size = size;
@@ -22,6 +23,12 @@ public class Pizza implements OrderItem {
         this.toppings = new ArrayList<>();
         this.sauces = new ArrayList<>();
         this.stuffedCrust = false;
+        this.sides = new ArrayList<>();
+    }
+
+
+    public void addSide(PizzaTopping side) {
+        sides.add(side);
     }
 
     public void addTopping(PizzaTopping topping) {
@@ -42,6 +49,9 @@ public class Pizza implements OrderItem {
 
     public Crust getCrust() {
         return crust;
+    }
+    public ArrayList<PizzaTopping> getSides() {
+        return sides;
     }
 
     public ArrayList<PizzaTopping> getToppings() {
@@ -90,6 +100,8 @@ public class Pizza implements OrderItem {
         StringBuilder cheeseDetails = new StringBuilder();
         StringBuilder regularDetails = new StringBuilder();
         StringBuilder sauceDetails = new StringBuilder();
+        StringBuilder sideDetails = new StringBuilder();
+        double sidesTotal = 0;
 
         for (PizzaTopping pizzaTopping : toppings) {
             Topping topping = pizzaTopping.getTopping();
@@ -117,6 +129,17 @@ public class Pizza implements OrderItem {
                         .append(String.format("%.2f", toppingPrice))
                         .append("\n");
             }
+        }
+
+        for (PizzaTopping side : sides) {
+            double sidePrice = side.getPrice(size);
+            sidesTotal += sidePrice;
+
+            sideDetails.append("  ")
+                    .append(String.format("%-24s", side.getDetails()))
+                    .append("$ ")
+                    .append(String.format("%.2f", sidePrice))
+                    .append("\n");
         }
 
         for (Sauce sauce : sauces) {
@@ -178,6 +201,17 @@ public class Pizza implements OrderItem {
         details.append("Stuffed crust:            $ ")
                 .append(String.format("%.2f", stuffedTotal))
                 .append("\n");
+
+        details.append("Sides:\n");
+        if (sideDetails.length() > 0) {
+            details.append(sideDetails);
+        } else {
+            details.append("  None                    $ 0.00\n");
+        }
+        details.append("Sides total:              $ ")
+                .append(String.format("%.2f", sidesTotal))
+                .append("\n");
+
 
         details.append("--------------------------------\n");
 

@@ -100,8 +100,8 @@ public class UserInterface {
         addToppingsFromCategory(pizza, Menu.getMeatToppings(), "🥓 Meat Toppings");
         addToppingsFromCategory(pizza, Menu.getCheeseToppings(), "🧀 Cheese Toppings");
         addToppingsFromCategory(pizza, Menu.getRegularToppings(), "🥬 Veggie & Classic Toppings");
-
         addSauces(pizza);
+        addSides(pizza);
 
         boolean stuffed = readYesNo("🧀 Add stuffed crust? (y/n): ");
         pizza.setStuffedCrust(stuffed);
@@ -276,6 +276,36 @@ public class UserInterface {
             }
 
             System.out.println("⚠️ Oops! Please choose one of the listed options.");
+        }
+    }
+
+    private void addSides(Pizza pizza) {
+        ArrayList sides = Menu.getSides();
+        boolean adding = true;
+
+        while (adding) {
+            System.out.println("\n\uD83C\uDF5F Sides");
+            System.out.println("0) Done");
+
+            for (int i = 0; i < sides.size(); i++) {
+                Topping side = (Topping) sides.get(i);
+                System.out.println((i + 1) + ") " + side.getName());
+            }
+
+            int choice = readInt("Choose a side: ");
+
+            if (choice == 0) {
+                adding = false;
+            } else if (choice >= 1 && choice <= sides.size()) {
+                Topping side = (Topping) sides.get(choice - 1);
+
+                pizza.addSide(new PizzaTopping(side, false));
+
+                System.out.println(side.getName() + " side added.");
+                System.out.println("✅");
+            } else {
+                System.out.println("⚠️ Please choose a valid side.");
+            }
         }
     }
 }

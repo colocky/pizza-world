@@ -21,7 +21,7 @@ public class ReceiptWriter {
             folder.mkdirs();
         }
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss")
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss");
         String fileName = LocalDateTime.now().format(formatter) + ".txt";
         File receiptFile = new File(folder, fileName);
         try (FileWriter writer = new FileWriter(receiptFile)) {
