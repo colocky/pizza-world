@@ -1,9 +1,15 @@
 package com.pizzaworld.models;
 
+import com.pizzaworld.toppings.CheeseTopping;
+import com.pizzaworld.toppings.MeatTopping;
+import com.pizzaworld.toppings.RegularTopping;
+import com.pizzaworld.toppings.Topping;
+
 import java.util.ArrayList;
 
 public class Pizza implements OrderItem {
     private static final double stuffedCrustPrice = 2.00;
+
     private PizzaSize size;
     private Crust crust;
     private ArrayList<PizzaTopping> toppings;
@@ -62,6 +68,7 @@ public class Pizza implements OrderItem {
         for (PizzaTopping topping : toppings) {
             total += topping.getPrice(size);
         }
+
         if (stuffedCrust) {
             total += stuffedCrustPrice;
         }
@@ -69,41 +76,111 @@ public class Pizza implements OrderItem {
         return total;
     }
 
-
-    // This one was really fun to do
     @Override
     public String getDetails() {
         StringBuilder details = new StringBuilder();
-        details.append(getName()).append("\n");
-        details.append(" Size: ").append(size.getName()).append(" ").append(size.getInches()).append("\"\n");
-        details.append(" Crust: ").append(crust.getName()).append("\n");
-        details.append(" Stuffed Crust: ").append(stuffedCrust ? "Yes" : "No").append("\n");
-        details.append(" Sauces: ");
 
-        if (sauces.isEmpty()) {
-            details.append("None");
-        } else {
-            for (int i = 0; i < sauces.size(); i++) {
-                details.append(sauces.get(i).getName());
-                if (i < sauces.size() - 1) {
-                    details.append(", ");
-                }
+        double basePrice = size.getBasePrice();
+        double meatTotal = 0;
+        double cheeseTotal = 0;
+        double regularTotal = 0;
+        double saucesTotal = 0;
+        double stuffedTotal = stuffedCrust ? stuffedCrustPrice : 0;
+
+        StringBuilder meatDetails = new StringBuilder();
+        StringBuilder cheeseDetails = new StringBuilder();
+        StringBuilder regularDetails = new StringBuilder();
+        StringBuilder sauceDetails = new StringBuilder();
+
+        for (PizzaTopping pizzaTopping : toppings) {
+            Topping topping = pizzaTopping.getTopping();
+            double toppingPrice = pizzaTopping.getPrice(size);
+
+            if (topping instanceof MeatTopping) {
+                meatTotal += toppingPrice;
+                meatDetails.append("  ")
+                        .append(String.format("%-24s", pizzaTopping.getDetails()))
+                        .append("$ ")
+                        .append(String.format("%.2f", toppingPrice))
+                        .append("\n");
+            } else if (topping instanceof CheeseTopping) {
+                cheeseTotal += toppingPrice;
+                cheeseDetails.append("  ")
+                        .append(String.format("%-24s", pizzaTopping.getDetails()))
+                        .append("$ ")
+                        .append(String.format("%.2f", toppingPrice))
+                        .append("\n");
+            } else if (topping instanceof RegularTopping) {
+                regularTotal += toppingPrice;
+                regularDetails.append("  ")
+                        .append(String.format("%-24s", pizzaTopping.getDetails()))
+                        .append("$ ")
+                        .append(String.format("%.2f", toppingPrice))
+                        .append("\n");
             }
         }
-        details.append("\n");
-        details.append(" Toppings: ");
-        if (toppings.isEmpty()) {
-            details.append("None");
-        } else {
-            for (int i = 0; i < toppings.size(); i++) {
-                details.append(toppings.get(i).getDetails());
-                if (i < toppings.size() - 1) {
-                    details.append(", ");
-                }
-            }
+
+        for (Sauce sauce : sauces) {
+            sauceDetails.append("  ")
+                    .append(String.format("%-24s", sauce.getName()))
+                    .append("$ 0.00")
+                    .append("\n");
         }
-        details.append("\n");
-        details.append(" Price: $").append(String.format("%.2f", getPrice()));
+
+        details.append(size.getName())
+                .append(" pizza base:        $")
+                .append(String.format("%.2f", basePrice))
+                .append("\n");
+
+        details.append("Meats:\n");
+        if (meatDetails.length() > 0) {
+            details.append(meatDetails);
+        } else {
+            details.append("  None                    $ 0.00\n");
+        }
+        details.append("Meat total:               $ ")
+                .append(String.format("%.2f", meatTotal))
+                .append("\n");
+
+        details.append("Cheeses:\n");
+        if (cheeseDetails.length() > 0) {
+            details.append(cheeseDetails);
+        } else {
+            details.append("  None                    $ 0.00\n");
+        }
+        details.append("Cheese total:             $ ")
+                .append(String.format("%.2f", cheeseTotal))
+                .append("\n");
+
+        details.append("Regular toppings:\n");
+        if (regularDetails.length() > 0) {
+            details.append(regularDetails);
+        } else {
+            details.append("  None                    $ 0.00\n");
+        }
+        details.append("Regular toppings total:   $ ")
+                .append(String.format("%.2f", regularTotal))
+                .append("\n");
+
+        details.append("Sauces:\n");
+        if (sauceDetails.length() > 0) {
+            details.append(sauceDetails);
+        } else {
+            details.append("  None                    $ 0.00\n");
+        }
+        details.append("Sauces total:             $ ")
+                .append(String.format("%.2f", saucesTotal))
+                .append("\n");
+
+        details.append("Stuffed crust:            $ ")
+                .append(String.format("%.2f", stuffedTotal))
+                .append("\n");
+
+        details.append("--------------------------------\n");
+
+        details.append("Total:                    $")
+                .append(String.format("%.2f", getPrice()));
+
         return details.toString();
     }
 }

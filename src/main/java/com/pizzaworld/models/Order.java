@@ -35,7 +35,7 @@ public class Order {
     public String getOrderDetails() {
         StringBuilder details = new StringBuilder();
         details.append("PIZZA WORLD Receipt\n");
-        details.append("·•—–٠✤٠—–•··•—–٠✤٠—–•·\n");
+        details.append("═══════════════════════════════════════════════\n");
         details.append("Order Time: ").append(orderDateTime).append("\n\n");
         if (items.isEmpty()) {
             details.append("No items in order.\n");

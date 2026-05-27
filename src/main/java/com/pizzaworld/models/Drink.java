@@ -4,6 +4,11 @@ public class Drink implements OrderItem{
     private ProductSize size;
     private String flavor;
 
+    public Drink(ProductSize size, String flavor) {
+        this.size = size;
+        this.flavor = flavor;
+    }
+
     public ProductSize getSize() {
         return size;
     }

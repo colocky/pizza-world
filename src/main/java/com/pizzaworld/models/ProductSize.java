@@ -27,6 +27,6 @@ public class ProductSize {
 
     @Override
     public String toString() {
-        return name + " - s" + String.format("%2f", price);
+        return name + " - $" + String.format("%.2f", price);
     }
 }
