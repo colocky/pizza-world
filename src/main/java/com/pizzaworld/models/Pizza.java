@@ -80,7 +80,6 @@ public class Pizza implements OrderItem {
     public String getDetails() {
         StringBuilder details = new StringBuilder();
 
-        double basePrice = size.getBasePrice();
         double meatTotal = 0;
         double cheeseTotal = 0;
         double regularTotal = 0;
@@ -129,7 +128,11 @@ public class Pizza implements OrderItem {
 
         details.append(size.getName())
                 .append(" pizza base:        $")
-                .append(String.format("%.2f", basePrice))
+                .append(String.format("%.2f", size.getBasePrice()))
+                .append("\n");
+
+        details.append("Crust:                   ")
+                .append(crust.getName())
                 .append("\n");
 
         details.append("Meats:\n");
