@@ -1,4 +1,4 @@
-package com.pizzaworld.models;
+package com.pizzaworld.model;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

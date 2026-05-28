@@ -87,16 +87,16 @@ pizza-world/
 │                   │   ├── PizzaSize.java
 │                   │   ├── PizzaTopping.java
 │                   │   ├── ProductSize.java
-│                   │   └── Sauce.java
+│                   │   ├── Sauce.java
+│                   │   └──toppings/
+│                   │       ├── CheeseTopping.java
+│                   │       ├── MeatTopping.java
+│                   │       ├── RegularTopping.java
+│                   │       └── Topping.java
 │                   │
 │                   ├── services/
 │                   │   └── ReceiptWriter.java
 │                   │
-│                   ├── toppings/
-│                   │   ├── CheeseTopping.java
-│                   │   ├── MeatTopping.java
-│                   │   ├── RegularTopping.java
-│                   │   └── Topping.java
 │                   │
 │                   └── ui/
 │                       └── UserInterface.java

@@ -1,9 +1,6 @@
-package com.pizzaworld.models;
+package com.pizzaworld.model;
 
-import com.pizzaworld.toppings.CheeseTopping;
-import com.pizzaworld.toppings.MeatTopping;
-import com.pizzaworld.toppings.RegularTopping;
-import com.pizzaworld.toppings.Topping;
+import com.pizzaworld.model.Toppings.*;
 
 import java.util.ArrayList;
 

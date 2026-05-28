@@ -1,6 +1,6 @@
-package com.pizzaworld.toppings;
+package com.pizzaworld.model.Toppings;
 
-import com.pizzaworld.models.PizzaSize;
+import com.pizzaworld.model.PizzaSize;
 
 public class MeatTopping extends Topping {
     public MeatTopping(String name) {

@@ -1,9 +1,10 @@
 package com.pizzaworld.ui;
 
-import com.pizzaworld.models.*;
-import com.pizzaworld.services.ReceiptWriter;
+import com.pizzaworld.model.*;
+import com.pizzaworld.data.ReceiptWriter;
 import com.pizzaworld.data.Menu;
-import com.pizzaworld.toppings.Topping;
+import com.pizzaworld.model.Toppings.PizzaTopping;
+import com.pizzaworld.model.Toppings.Topping;
 
 import java.util.ArrayList;
 import java.util.Scanner;

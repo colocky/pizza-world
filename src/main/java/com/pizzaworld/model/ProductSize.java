@@ -1,4 +1,4 @@
-package com.pizzaworld.models;
+package com.pizzaworld.model;
 
 public class ProductSize {
     private String name;

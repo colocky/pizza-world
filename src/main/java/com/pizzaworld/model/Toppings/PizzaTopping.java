@@ -1,6 +1,6 @@
-package com.pizzaworld.models;
+package com.pizzaworld.model.Toppings;
 
-import com.pizzaworld.toppings.Topping;
+import com.pizzaworld.model.PizzaSize;
 
 public class PizzaTopping {
     private Topping topping;

@@ -1,7 +1,8 @@
-package com.pizzaworld.models;
+package com.pizzaworld.model;
 
-import com.pizzaworld.toppings.CheeseTopping;
-import com.pizzaworld.toppings.RegularTopping;
+import com.pizzaworld.model.Toppings.CheeseTopping;
+import com.pizzaworld.model.Toppings.PizzaTopping;
+import com.pizzaworld.model.Toppings.RegularTopping;
 
 public class VeggiePizza extends Pizza {
     public VeggiePizza() {
