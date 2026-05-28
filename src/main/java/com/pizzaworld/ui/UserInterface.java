@@ -157,7 +157,7 @@ public class UserInterface {
         boolean customizing = true;
 
         while (customizing) {
-            System.out.println("\n Signature Pizza Customization");
+            System.out.println("\n🖊️ Signature Pizza Customization");
             System.out.println("════════════════════════════════════");
             System.out.println("1) View current ingredients");
             System.out.println("2) Remove a topping");
