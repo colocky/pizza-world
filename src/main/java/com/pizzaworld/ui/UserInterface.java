@@ -1,14 +1,6 @@
 package com.pizzaworld.ui;
 
-import com.pizzaworld.models.Crust;
-import com.pizzaworld.models.Drink;
-import com.pizzaworld.models.GarlicKnots;
-import com.pizzaworld.models.Order;
-import com.pizzaworld.models.Pizza;
-import com.pizzaworld.models.PizzaSize;
-import com.pizzaworld.models.PizzaTopping;
-import com.pizzaworld.models.ProductSize;
-import com.pizzaworld.models.Sauce;
+import com.pizzaworld.models.*;
 import com.pizzaworld.services.ReceiptWriter;
 import com.pizzaworld.data.Menu;
 import com.pizzaworld.toppings.Topping;
@@ -91,11 +83,31 @@ public class UserInterface {
     public void showAddPizzaScreen() {
         System.out.println("\n🍕  BUILD YOUR PERFECT PIZZA  🍕");
         System.out.println("════════════════════════════════════");
+        System.out.println("Select your type:");
+        System.out.println("1) Custom Pizza");
+        System.out.println("2) Margherita Signature Pizza");
+        System.out.println("3) Veggie Signature Pizza");
 
-        PizzaSize size = chooseFromList(Menu.getPizzaSizes(), "Choose your pizza size:");
-        Crust crust = chooseFromList(Menu.getCrusts(), "Choose your crust style:");
+        int typeChoice = readInt(" Choose an option: ");
 
-        Pizza pizza = new Pizza(size, crust);
+        Pizza pizza;
+
+        if (typeChoice == 1) {
+            PizzaSize size = chooseFromList(Menu.getPizzaSizes(), "Choose your pizza size:");
+            Crust crust = chooseFromList(Menu.getCrusts(), "Choose your crust style:");
+            pizza = new Pizza(size, crust);
+        } else if (typeChoice == 2) {
+            pizza = new MargheritaPizza();
+            System.out.println("✅ Margherita Signature Pizza selected.");
+            customizeSignaturePizza(pizza);
+        } else if (typeChoice == 3) {
+            pizza = new VeggiePizza();
+            System.out.println("✅ Veggie Signature Pizza selected.");
+            customizeSignaturePizza(pizza);
+        } else {
+            System.out.println("⚠️ Oops! Please choose one of the listed options.");
+            return;
+        }
 
         addToppingsFromCategory(pizza, Menu.getMeatToppings(), "🥓 Meat Toppings");
         addToppingsFromCategory(pizza, Menu.getCheeseToppings(), "🧀 Cheese Toppings");
@@ -138,6 +150,91 @@ public class UserInterface {
         currentOrder.addItem(garlicKnots);
 
         System.out.println("✅ Garlic knots added! A tasty choice.");
+    }
+
+    private void customizeSignaturePizza(Pizza pizza) {
+        boolean customizing = true;
+
+        while (customizing) {
+            System.out.println("\n Signature Pizza Customization");
+            System.out.println("════════════════════════════════════");
+            System.out.println("1) View current ingredients");
+            System.out.println("2) Remove a topping");
+            System.out.println("3) Remove a sauce");
+            System.out.println("0) Continue building pizza");
+
+            int choice = readInt(" Choose an option: ");
+
+            if (choice == 1) {
+                System.out.println(pizza.getDetails());
+            } else if (choice == 2) {
+                removeToppingFromPizza(pizza);
+            } else if (choice == 3) {
+                removeSauceFromPizza(pizza);
+            } else if (choice == 0) {
+                customizing = false;
+            } else {
+                System.out.println("⚠️ Oops! Please choose one of the listed options.");
+            }
+        }
+    }
+
+    private void removeToppingFromPizza(Pizza pizza) {
+        ArrayList toppings = pizza.getToppings();
+
+        if (toppings.isEmpty()) {
+            System.out.println("This pizza has no toppings to remove.");
+            return;
+        }
+
+        System.out.println("\nCurrent Toppings:");
+        System.out.println("0) Cancel");
+
+        for (int i = 0; i < toppings.size(); i++) {
+            PizzaTopping topping = (PizzaTopping) toppings.get(i);
+            System.out.println((i + 1) + ") " + topping.getDetails());
+        }
+
+        int choice = readInt("Choose a topping to remove: ");
+
+        if (choice == 0) {
+            return;
+        } else if (choice >= 1 && choice <= toppings.size()) {
+            PizzaTopping removed = (PizzaTopping) toppings.get(choice - 1);
+            pizza.removeTopping(choice - 1);
+            System.out.println("Removed " + removed.getDetails() + ".");
+        } else {
+            System.out.println("⚠️ Please choose a topping from the list.");
+        }
+    }
+
+    private void removeSauceFromPizza(Pizza pizza) {
+        ArrayList sauces = pizza.getSauces();
+
+        if (sauces.isEmpty()) {
+            System.out.println("This pizza has no sauces to remove.");
+            return;
+        }
+
+        System.out.println("\nCurrent Sauces:");
+        System.out.println("0) Cancel");
+
+        for (int i = 0; i < sauces.size(); i++) {
+            Sauce sauce = (Sauce) sauces.get(i);
+            System.out.println((i + 1) + ") " + sauce.getName());
+        }
+
+        int choice = readInt("Choose a sauce to remove: ");
+
+        if (choice == 0) {
+            return;
+        } else if (choice >= 1 && choice <= sauces.size()) {
+            Sauce removed = (Sauce) sauces.get(choice - 1);
+            pizza.removeSauce(choice - 1);
+            System.out.println("Removed " + removed.getName() + ".");
+        } else {
+            System.out.println("⚠️ Please choose a sauce from the list.");
+        }
     }
 
     public boolean showCheckoutScreen() {

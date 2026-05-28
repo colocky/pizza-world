@@ -66,6 +66,14 @@ public class Pizza implements OrderItem {
         return stuffedCrust;
     }
 
+    public void removeTopping(int index) {
+        toppings.remove(index);
+    }
+
+    public void removeSauce(int index) {
+        sauces.remove(index);
+    }
+
     @Override
     public String getName() {
         return size.getName() + " Pizza";
