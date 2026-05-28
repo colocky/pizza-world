@@ -118,6 +118,7 @@ The home screen allows the user to:
 1) Start a Fresh Order
 0) Exit
 ```
+![img.png](screenshots/img.png)
 
 ### Order Screen
 
@@ -130,7 +131,7 @@ The order screen allows the user to:
 4) Checkout
 0) Cancel Order
 ```
-
+![img_1.png](screenshots/img_1.png)
 ### Add Pizza Screen
 
 The pizza screen walks the customer through:
